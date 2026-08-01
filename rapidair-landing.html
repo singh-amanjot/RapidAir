@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RapidAir — Keep Your System Running Stronger, Longer.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B2027;
+    --teal:#153B42;
+    --teal-light:#1F5761;
+    --coolant:#49D6C7;
+    --coolant-dim:#2E9E93;
+    --amber:#F2A93B;
+    --paper:#F5FAF9;
+    --paper-dim:#E6EFEE;
+    --charcoal:#16232A;
+    --line: rgba(255,255,255,0.14);
+    --line-dark: rgba(11,32,39,0.12);
+    --shadow: 0 20px 50px rgba(11,32,39,0.18);
+    --radius: 4px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--charcoal);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Oswald',sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+    margin:0;
+  }
+  .mono{font-family:'JetBrains Mono',monospace;}
+  a{color:inherit;text-decoration:none;}
+  img,svg{display:block;max-width:100%;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+  button{font-family:inherit;cursor:pointer;border:none;}
+
+  /* ===== Reduced motion ===== */
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+
+  /* ===== HEADER ===== */
+  .site-header{
+    position:sticky; top:0; z-index:50;
+    background:var(--ink);
+    border-bottom:1px solid var(--line);
+  }
+  .header-top{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:10px 24px;
+    max-width:1180px; margin:0 auto;
+    gap:16px; flex-wrap:wrap;
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+  }
+  .brand-mark{
+    width:34px; height:34px; flex-shrink:0;
+  }
+  .brand-name{
+    font-family:'Oswald',sans-serif;
+    font-size:20px; font-weight:700; letter-spacing:0.04em;
+    color:#fff; text-transform:uppercase;
+  }
+  .brand-tag{
+    font-size:11px; color:var(--coolant);
+    text-transform:uppercase; letter-spacing:0.12em;
+    font-weight:500;
+  }
+  .header-badges{
+    display:flex; align-items:center; gap:14px;
+    font-size:12.5px; color:#C9DEDC;
+    flex-wrap:wrap;
+  }
+  .header-badges span{display:flex; align-items:center; gap:6px;}
+  .dot{width:5px;height:5px;border-radius:50%;background:var(--coolant);display:inline-block;}
+  .header-cta{
+    display:flex; align-items:center; gap:10px;
+    background:var(--coolant);
+    color:var(--ink);
+    padding:9px 16px;
+    border-radius:2px;
+    font-weight:700;
+    font-family:'JetBrains Mono',monospace;
+    font-size:14.5px;
+    white-space:nowrap;
+  }
+  .header-slogan-bar{
+    background:var(--teal);
+    text-align:center;
+    padding:6px 12px;
+    font-size:12.5px;
+    color:#DFF3F0;
+    font-style:italic;
+    border-top:1px solid var(--line);
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    background:
+      radial-gradient(circle at 82% 20%, rgba(73,214,199,0.15), transparent 45%),
+      linear-gradient(180deg, var(--ink) 0%, var(--teal) 100%);
+    color:#fff;
+    padding:64px 0 80px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.15fr 0.85fr;
+    gap:56px;
+    align-items:start;
+  }
+  .badge-row{
+    display:flex; gap:10px; flex-wrap:wrap; margin-bottom:24px;
+  }
+  .badge-pill{
+    border:1px solid var(--line);
+    color:var(--coolant);
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    padding:6px 12px;
+    border-radius:100px;
+    font-weight:600;
+  }
+  .hero h1{
+    font-size:clamp(34px, 4.6vw, 54px);
+    line-height:1.05;
+    color:#fff;
+    margin-bottom:18px;
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:var(--coolant);
+  }
+  .hero-sub{
+    font-size:16.5px;
+    line-height:1.65;
+    color:#CFE3E1;
+    max-width:520px;
+    margin-bottom:28px;
+  }
+  .hero-bullets{
+    list-style:none; padding:0; margin:0 0 8px;
+    display:flex; flex-direction:column; gap:12px;
+  }
+  .hero-bullets li{
+    display:flex; gap:12px; align-items:flex-start;
+    font-size:15px; color:#E4F1F0;
+  }
+  .check{
+    flex-shrink:0; width:20px; height:20px; margin-top:1px;
+  }
+
+  /* gauge visual */
+  .gauge-strip{
+    margin-top:44px;
+    display:flex; align-items:center; gap:18px;
+  }
+  .gauge-wrap{width:86px; height:86px; flex-shrink:0;}
+  .gauge-caption{font-size:12px; color:#9FC4C0; line-height:1.5; max-width:280px;}
+  .gauge-caption b{color:var(--coolant); font-family:'JetBrains Mono',monospace;}
+
+  /* ===== BOOKING PANEL ===== */
+  .booking-panel{
+    background:var(--paper);
+    color:var(--charcoal);
+    border-radius:6px;
+    padding:28px;
+    box-shadow:var(--shadow);
+    border-top:4px solid var(--coolant);
+  }
+  .booking-eyebrow{
+    font-size:12px; text-transform:uppercase; letter-spacing:0.1em;
+    color:var(--teal-light); font-weight:700; margin-bottom:6px;
+  }
+  .booking-panel h3{
+    font-size:22px; margin-bottom:20px; color:var(--ink);
+  }
+  .field-label{
+    font-size:11.5px; text-transform:uppercase; letter-spacing:0.08em;
+    color:#5B7370; font-weight:600; margin-bottom:6px; display:block;
+  }
+  .field{margin-bottom:16px;}
+  select, input[type=tel]{
+    width:100%;
+    padding:12px 14px;
+    border:1px solid var(--line-dark);
+    border-radius:3px;
+    font-family:'Inter',sans-serif;
+    font-size:14.5px;
+    background:#fff;
+    color:var(--charcoal);
+  }
+  select:focus, input:focus, button:focus-visible, a:focus-visible{
+    outline:2px solid var(--coolant-dim);
+    outline-offset:2px;
+  }
+  .btn-primary{
+    width:100%;
+    background:var(--ink);
+    color:#fff;
+    padding:15px 18px;
+    border-radius:3px;
+    font-weight:700;
+    font-size:14.5px;
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    transition:background .18s ease, transform .18s ease;
+  }
+  .btn-primary:hover{background:var(--teal-light); transform:translateY(-1px);}
+
+  /* Three-way contact options: Text / WhatsApp / Call */
+  .contact-options{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin-bottom:14px;
+  }
+  .contact-btn{
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:8px;
+    padding:16px 8px;
+    border-radius:4px;
+    border:1px solid var(--line-dark);
+    background:#fff;
+    transition:transform .16s ease, box-shadow .16s ease, background .16s ease, border-color .16s ease;
+  }
+  .contact-btn svg{width:22px;height:22px;}
+  .contact-label{
+    font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.04em;
+  }
+  .contact-btn:hover{transform:translateY(-2px); box-shadow:0 10px 22px rgba(11,32,39,0.14);}
+  .contact-text{color:var(--ink); border-color:rgba(21,59,66,0.25);}
+  .contact-text:hover{background:var(--teal); color:#fff; border-color:var(--teal);}
+  .contact-whatsapp{color:#128C4A; border-color:rgba(37,211,102,0.35);}
+  .contact-whatsapp:hover{background:#25D366; color:#fff; border-color:#25D366;}
+  .contact-call{color:var(--ink); background:var(--coolant); border-color:var(--coolant);}
+  .contact-call:hover{background:var(--coolant-dim); border-color:var(--coolant-dim);}
+  .contact-number{
+    text-align:center;
+    font-size:15px; font-weight:700; letter-spacing:0.02em;
+    color:var(--ink); margin:0;
+  }
+
+  /* ===== SECTION HEADERS ===== */
+  .section{padding:80px 0;}
+  .section-head{text-align:center; max-width:640px; margin:0 auto 48px;}
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--coolant-dim); margin-bottom:12px; display:block; font-weight:700;
+  }
+  .section-head h2{font-size:clamp(26px,3.4vw,36px); color:var(--ink); margin-bottom:12px;}
+  .section-head p{font-size:15.5px; color:#4E6663; line-height:1.6;}
+
+  /* ===== PLANS ===== */
+  .plans-section{background:var(--paper-dim);}
+  .plans-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:0;
+    border:1px solid var(--line-dark);
+    border-radius:8px;
+    overflow:hidden;
+    background:#fff;
+  }
+  .plan-card{
+    padding:34px 26px;
+    border-right:1px solid var(--line-dark);
+    display:flex; flex-direction:column;
+    position:relative;
+  }
+  .plan-card:last-child{border-right:none;}
+  .plan-card.featured{
+    background:var(--ink);
+    color:#fff;
+    transform:scale(1.03);
+    z-index:2;
+    box-shadow:0 24px 60px rgba(11,32,39,0.28);
+  }
+  .plan-flag{
+    position:absolute; top:0; left:0; right:0;
+    background:var(--coolant); color:var(--ink);
+    text-align:center; font-size:11px; font-weight:700;
+    letter-spacing:0.1em; text-transform:uppercase;
+    padding:6px 0;
+  }
+  .plan-card.featured .plan-body{margin-top:22px;}
+  .plan-name{
+    font-family:'Oswald',sans-serif; text-transform:uppercase;
+    font-size:19px; letter-spacing:0.03em; margin-bottom:4px;
+  }
+  .plan-card.featured .plan-name{color:var(--coolant);}
+  .plan-price{
+    font-family:'JetBrains Mono',monospace;
+    font-size:38px; font-weight:700; margin:14px 0 2px;
+    display:flex; align-items:baseline; gap:6px;
+  }
+  .plan-price span{font-size:14px; font-weight:500; color:#6D8785;}
+  .plan-card.featured .plan-price span{color:#9FC4C0;}
+  .plan-annual{
+    font-size:12.5px; color:#6D8785; margin-bottom:22px;
+    font-family:'JetBrains Mono',monospace;
+  }
+  .plan-card.featured .plan-annual{color:#9FC4C0;}
+  .plan-annual del{opacity:.6; margin-right:6px;}
+  .plan-annual b{color:var(--coolant-dim); font-weight:700;}
+  .plan-card.featured .plan-annual b{color:var(--coolant);}
+  .plan-includes-label{
+    font-size:11px; text-transform:uppercase; letter-spacing:0.08em;
+    color:#8CA6A3; font-weight:700; margin-bottom:12px;
+  }
+  .plan-card.featured .plan-includes-label{color:#7FB3AE;}
+  .plan-list{list-style:none; padding:0; margin:0 0 28px; flex:1;}
+  .plan-list li{
+    display:flex; gap:10px; align-items:flex-start;
+    font-size:14px; line-height:1.5; margin-bottom:12px; color:#3A504D;
+  }
+  .plan-card.featured .plan-list li{color:#DCECEA;}
+  .plan-list svg{width:16px;height:16px;margin-top:2px;flex-shrink:0;color:var(--coolant-dim);}
+  .plan-card.featured .plan-list svg{color:var(--coolant);}
+  .plan-btn{
+    width:100%; padding:13px; border-radius:3px;
+    font-weight:700; font-size:13.5px; text-transform:uppercase; letter-spacing:0.03em;
+    background:var(--ink); color:#fff;
+    transition:background .18s ease;
+  }
+  .plan-card.featured .plan-btn{background:var(--coolant); color:var(--ink);}
+  .plan-btn:hover{background:var(--teal-light);}
+  .plan-card.featured .plan-btn:hover{background:#65e3d5;}
+  .plans-footnote{
+    text-align:center; font-size:12px; color:#6D8785; margin-top:20px;
+  }
+
+  /* ===== TRUST BANNER ===== */
+  .trust-banner{
+    background:var(--ink); color:#fff; padding:0;
+  }
+  .trust-top{
+    text-align:center; padding:26px 24px 10px;
+  }
+  .trust-top h3{font-size:18px; color:var(--coolant); margin-bottom:6px;}
+  .trust-top p{font-size:13.5px; color:#AFC9C6; margin:0;}
+  .trust-grid{
+    display:grid; grid-template-columns:repeat(4,1fr);
+    border-top:1px solid var(--line);
+    margin-top:20px;
+  }
+  .trust-item{
+    text-align:center; padding:26px 16px;
+    border-right:1px solid var(--line);
+    font-size:13px; font-weight:600; letter-spacing:0.02em;
+    display:flex; flex-direction:column; align-items:center; gap:10px;
+  }
+  .trust-item:last-child{border-right:none;}
+  .trust-item svg{width:24px;height:24px;color:var(--coolant);}
+
+  /* ===== VERIFY SECTION ===== */
+  .verify-section{
+    background:linear-gradient(135deg, #fff 0%, var(--paper-dim) 100%);
+  }
+  .verify-grid{
+    display:grid; grid-template-columns:0.9fr 1.1fr;
+    gap:56px; align-items:center;
+  }
+  .verify-dial{width:220px; margin:0 auto;}
+  .verify-copy h2{font-size:clamp(24px,3vw,32px); color:var(--ink); margin-bottom:16px;}
+  .verify-copy p{font-size:15.5px; line-height:1.7; color:#4E6663; margin-bottom:22px;}
+  .verify-list{list-style:none; padding:0; margin:0 0 28px;}
+  .verify-list li{
+    display:flex; gap:12px; align-items:flex-start;
+    font-size:14.5px; color:var(--charcoal); margin-bottom:14px;
+  }
+  .verify-list svg{width:18px;height:18px;flex-shrink:0;color:var(--coolant-dim); margin-top:1px;}
+  .verify-cta{
+    display:inline-flex; align-items:center; gap:10px;
+    background:var(--ink); color:#fff;
+    padding:15px 24px; border-radius:3px;
+    font-family:'JetBrains Mono',monospace; font-weight:700; font-size:15px;
+    transition:background .18s ease, transform .18s ease;
+  }
+  .verify-cta:hover{background:var(--teal-light); transform:translateY(-1px);}
+  .verify-cta svg{width:18px;height:18px;color:var(--coolant);}
+
+  /* ===== FOOTER ===== */
+  footer{background:var(--ink); color:#9FC4C0; padding:40px 0 110px;}
+  .footer-grid{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    flex-wrap:wrap; gap:24px; padding-bottom:24px;
+    border-bottom:1px solid var(--line);
+  }
+  .footer-brand{display:flex; align-items:center; gap:10px;}
+  .footer-brand span{font-family:'Oswald',sans-serif; color:#fff; font-size:17px; letter-spacing:0.03em;}
+  .footer-contact{font-family:'JetBrains Mono',monospace; font-size:15px; color:var(--coolant);}
+  .footer-note{
+    font-size:12px; line-height:1.7; color:#6E8B88; padding-top:20px; max-width:900px;
+  }
+
+  /* ===== MOBILE STICKY BAR ===== */
+  .mobile-bar{
+    position:fixed; bottom:0; left:0; right:0; z-index:60;
+    background:var(--ink);
+    border-top:1px solid var(--line);
+    display:flex;
+    box-shadow:0 -10px 30px rgba(0,0,0,0.25);
+  }
+  .mobile-bar a, .mobile-bar button{
+    flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px;
+    padding:11px 6px;
+    font-family:'JetBrains Mono',monospace; font-weight:700; font-size:11.5px;
+    text-transform:uppercase; letter-spacing:0.02em;
+    color:#fff;
+    border-right:1px solid var(--line);
+  }
+  .mobile-bar a:last-child, .mobile-bar button:last-child{border-right:none;}
+  .mobile-bar .whatsapp-btn{background:#25D366; color:#0B2027;}
+  .mobile-bar .call-btn{background:var(--coolant); color:var(--ink);}
+  .mobile-bar svg{width:18px;height:18px;}
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width:920px){
+    .hero-grid{grid-template-columns:1fr;}
+    .plans-grid{grid-template-columns:1fr;}
+    .plan-card{border-right:none; border-bottom:1px solid var(--line-dark);}
+    .plan-card.featured{transform:none; order:-1;}
+    .trust-grid{grid-template-columns:repeat(2,1fr);}
+    .trust-item:nth-child(2){border-right:none;}
+    .trust-item{border-bottom:1px solid var(--line);}
+    .verify-grid{grid-template-columns:1fr;}
+    .verify-dial{width:160px;}
+    .header-badges{display:none;}
+  }
+  @media (max-width:600px){
+    .header-top{padding:10px 16px;}
+    .header-cta span.cta-label{display:none;}
+    .hero{padding:40px 0 60px;}
+    .section{padding:56px 0;}
+    body{padding-bottom:64px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+  <div class="header-top">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="19" stroke="#49D6C7" stroke-width="2"/>
+        <path d="M20 8v6M20 26v6M8 20h6M26 20h6M12.3 12.3l4.2 4.2M23.5 23.5l4.2 4.2M27.7 12.3l-4.2 4.2M16.5 23.5l-4.2 4.2" stroke="#49D6C7" stroke-width="1.6" stroke-linecap="round"/>
+        <circle cx="20" cy="20" r="4.5" fill="#49D6C7"/>
+      </svg>
+      <div>
+        <div class="brand-name">RapidAir</div>
+        <div class="brand-tag">Local. Reliable. RapidAir.</div>
+      </div>
+    </div>
+    <div class="header-badges">
+      <span><i class="dot"></i>Licensed &amp; Insured</span>
+      <span><i class="dot"></i>Proudly Serving Tampa Bay</span>
+    </div>
+    <a href="tel:8138699173" class="header-cta">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C11.4 21 3 12.6 3 3c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.3 1l-2.1 2.2z" fill="currentColor"/></svg>
+      <span class="cta-label">(813) 869-9173</span>
+    </a>
+  </div>
+  <div class="header-slogan-bar">"Before You Buy, Let RapidAir Verify."</div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="badge-row">
+        <span class="badge-pill">Reliable Service</span>
+        <span class="badge-pill">Honest Pricing</span>
+        <span class="badge-pill">Fast Response</span>
+      </div>
+      <h1>Keep Your System Running <em>Stronger, Longer.</em></h1>
+      <p class="hero-sub">Fast, reliable AC repair &amp; maintenance for Tampa Bay homeowners. Prevent breakdowns, save money, and get priority service — before you buy or commit to a major repair, let RapidAir verify.</p>
+      <ul class="hero-bullets">
+        <li><svg class="check" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" stroke="#49D6C7" stroke-width="1.6"/><path d="M7.5 12.5l3 3 6-6.5" stroke="#49D6C7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Local &amp; trusted — serving Hillsborough &amp; Pinellas Counties</li>
+        <li><svg class="check" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" stroke="#49D6C7" stroke-width="1.6"/><path d="M7.5 12.5l3 3 6-6.5" stroke="#49D6C7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Flexible monthly &amp; discounted annual maintenance plans</li>
+        <li><svg class="check" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" stroke="#49D6C7" stroke-width="1.6"/><path d="M7.5 12.5l3 3 6-6.5" stroke="#49D6C7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Licensed &amp; insured technicians</li>
+      </ul>
+
+      <div class="gauge-strip">
+        <div class="gauge-wrap" id="heroGauge"></div>
+        <div class="gauge-caption">System stress drops sharply after a RapidAir tune-up. <b>2 visits/year</b> keeps your gauge in the green through Tampa's toughest months.</div>
+      </div>
+    </div>
+
+    <div class="booking-panel">
+      <span class="booking-eyebrow">Schedule Service Now</span>
+      <h3>Claim your comfort plan</h3>
+      <div class="field">
+        <label class="field-label" for="issue">What's the issue?</label>
+        <select id="issue">
+          <option>Maintenance / Comfort Plan</option>
+          <option>AC not cooling</option>
+          <option>Strange noise or smell</option>
+          <option>New system quote / second opinion</option>
+          <option>Emergency repair</option>
+        </select>
+      </div>
+
+      <span class="field-label" style="display:block;margin-bottom:10px;">Pick how you'd like to connect</span>
+      <div class="contact-options">
+        <a href="sms:+18138699173" class="contact-btn contact-text">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 4h16v12H7l-3 3V4z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8 9h8M8 12h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <span class="contact-label">Text Us</span>
+        </a>
+        <a href="https://wa.me/18138699173" target="_blank" rel="noopener" class="contact-btn contact-whatsapp">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 3a9 9 0 00-7.8 13.5L3 21l4.7-1.2A9 9 0 1012 3z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M8.5 8.7c.2-.5.5-.5.8-.5h.6c.2 0 .4 0 .6.4.2.5.7 1.6.7 1.7.1.2.1.3 0 .5-.1.2-.2.3-.3.5-.2.2-.3.3-.1.6.2.4.9 1.4 1.9 2.2 1.3 1 2.3 1.4 2.7 1.5.3.1.5.1.7-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1.2.1 1.5.7 1.8.8.3.2.5.2.5.4 0 .2 0 1-.5 1.6-.4.6-1.9 1.2-2.6 1.2-.7 0-1.5-.1-3.5-1-2.5-1.1-4.1-3.5-4.3-3.7-.1-.2-1-1.3-1-2.5 0-1.2.6-1.7.8-2z" fill="currentColor"/></svg>
+          <span class="contact-label">WhatsApp</span>
+        </a>
+        <a href="tel:+18138699173" class="contact-btn contact-call">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C11.4 21 3 12.6 3 3c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.3 1l-2.1 2.2z" fill="currentColor"/></svg>
+          <span class="contact-label">Call Us</span>
+        </a>
+      </div>
+      <p class="contact-number mono">(813) 869-9173</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PLANS ===== -->
+<section class="section plans-section" id="plans">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Comfort Plans</span>
+      <h2>3 Comfort Plans. 1 Comfortable Choice.</h2>
+      <p>Prevent breakdowns. Save money. Get priority service. Pay monthly or lock in 10% off with an annual plan.</p>
+    </div>
+
+    <div class="plans-grid">
+      <!-- BASIC -->
+      <div class="plan-card">
+        <div class="plan-body">
+          <div class="plan-name">Basic Comfort</div>
+          <div class="plan-price">$19<span>/ month</span></div>
+          <div class="plan-annual">Annual — Save 10%: <del>$228</del> <b>$205/yr</b></div>
+          <div class="plan-includes-label">Includes</div>
+          <ul class="plan-list">
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4.5 4.5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>2 maintenance visits per year</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4.5 4.5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Evaporator / condenser coil cleaning*</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4.5 4.5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Drain line cleanout</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4.5 4.5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Full system diagnostics &amp; performance check</li>
+          </ul>
+        </div>
+        <button class="plan-btn">Select Basic Plan</button>
+      </div>
+
+      <!-- PREMIUM -->
+      <div class="plan-card featured">
+        <div class="plan-flag">Most Popular</div>
+        <div class="plan-body">
+          <div class="plan-name">Premium Comfort</div>
+          <div class="plan-price">$29<span>/ month</span></div>
+          <div class="plan-annual">Annual — Save 10%: <del>$348</del> <b>$313/yr</b></div>
+          <div class="plan-includes-label">Everything in Basic, plus</div>
+          <ul class="plan-list">
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4.5 4.5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Waived diagnostic / service call fees (regular hours)</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4.5 4.5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Priority scheduling</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4.5 4.5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Thermostat performance check</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4.5 4.5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Maintenance reminder scheduling</li>
+          </ul>
+        </div>
+        <button class="plan-btn">Claim Premium Plan</button>
+      </div>
+
+      <!-- VIP -->
+      <div class="plan-card">
+        <div class="plan-body">
+          <div class="plan-name">VIP Comfort</div>
+          <div class="plan-price">$39<span>/ month</span></div>
+          <div class="plan-annual">Annual — Save 10%: <del>$468</del> <b>$421/yr</b></div>
+          <div class="plan-includes-label">Everything in Basic &amp; Premium, plus</div>
+          <ul class="plan-list">
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4.5 4.5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Waived after-hours / emergency service fees</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4.5 4.5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>10% discount on repairs</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4.5 4.5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Front-of-line emergency priority</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4.5 4.5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>VIP member scheduling</li>
+          </ul>
+        </div>
+        <button class="plan-btn">Upgrade to VIP</button>
+      </div>
+    </div>
+    <p class="plans-footnote">*Deep evaporator coil cleaning, chemical cleanings, drain repairs, and specialty treatments not included.</p>
+  </div>
+</section>
+
+<!-- ===== TRUST BANNER ===== -->
+<section class="trust-banner">
+  <div class="wrap trust-top">
+    <h3>Maintenance Today. Comfort Every Day.</h3>
+    <p>Plans help reduce breakdowns and extend equipment life.</p>
+  </div>
+  <div class="trust-grid">
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5l8-3z" stroke="currentColor" stroke-width="1.6"/></svg>
+      Reliable Service
+    </div>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Honest Pricing
+    </div>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      Fast Response
+    </div>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M4 11l8-7 8 7v9a1 1 0 01-1 1h-4v-6H9v6H5a1 1 0 01-1-1v-9z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      Local &amp; Trusted
+    </div>
+  </div>
+</section>
+
+<!-- ===== VERIFY ===== -->
+<section class="section verify-section">
+  <div class="wrap verify-grid">
+    <div class="verify-dial" id="verifyGauge"></div>
+    <div class="verify-copy">
+      <span class="eyebrow">Second Opinion</span>
+      <h2>Before You Buy or Replace — Let RapidAir Verify</h2>
+      <p>Got a high quote for a new AC unit or repair? Don't overpay. Get a second opinion from Tampa's honest pricing specialists before you sign anything.</p>
+      <ul class="verify-list">
+        <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4.5 4.5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>100% honest diagnostic verification</li>
+        <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4.5 4.5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>No hidden fees or surprise upsells</li>
+        <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4.5 4.5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Detailed system performance report</li>
+      </ul>
+      <a href="tel:8138699173" class="verify-cta">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C11.4 21 3 12.6 3 3c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.3 1l-2.1 2.2z" fill="currentColor"/></svg>
+        Call / Text for Second Opinion: (813) 869-9173
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <svg width="26" height="26" viewBox="0 0 40 40" fill="none">
+          <circle cx="20" cy="20" r="19" stroke="#49D6C7" stroke-width="2"/>
+          <path d="M20 8v6M20 26v6M8 20h6M26 20h6M12.3 12.3l4.2 4.2M23.5 23.5l4.2 4.2M27.7 12.3l-4.2 4.2M16.5 23.5l-4.2 4.2" stroke="#49D6C7" stroke-width="1.6" stroke-linecap="round"/>
+          <circle cx="20" cy="20" r="4.5" fill="#49D6C7"/>
+        </svg>
+        <span>RapidAir</span>
+      </div>
+      <a href="tel:8138699173" class="footer-contact">Questions? Call or text (813) 869-9173 for immediate response.</a>
+    </div>
+    <p class="footer-note">*Deep evaporator coil cleaning, chemical cleanings, drain repairs, and specialty treatments not included in standard maintenance plans. Licensed &amp; insured. Proudly serving Tampa Bay and surrounding communities.</p>
+  </div>
+</footer>
+
+<!-- ===== MOBILE STICKY BAR ===== -->
+<div class="mobile-bar">
+  <a href="sms:+18138699173" class="text-btn">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M4 4h16v12H7l-3 3V4z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8 9h8M8 12h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    Text
+  </a>
+  <a href="https://wa.me/18138699173" target="_blank" rel="noopener" class="whatsapp-btn">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M12 3a9 9 0 00-7.8 13.5L3 21l4.7-1.2A9 9 0 1012 3z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M8.5 8.7c.2-.5.5-.5.8-.5h.6c.2 0 .4 0 .6.4.2.5.7 1.6.7 1.7.1.2.1.3 0 .5-.1.2-.2.3-.3.5-.2.2-.3.3-.1.6.2.4.9 1.4 1.9 2.2 1.3 1 2.3 1.4 2.7 1.5.3.1.5.1.7-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1.2.1 1.5.7 1.8.8.3.2.5.2.5.4 0 .2 0 1-.5 1.6-.4.6-1.9 1.2-2.6 1.2-.7 0-1.5-.1-3.5-1-2.5-1.1-4.1-3.5-4.3-3.7-.1-.2-1-1.3-1-2.5 0-1.2.6-1.7.8-2z" fill="currentColor"/></svg>
+    WhatsApp
+  </a>
+  <a href="tel:+18138699173" class="call-btn">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C11.4 21 3 12.6 3 3c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.3 1l-2.1 2.2z" fill="currentColor"/></svg>
+    Call
+  </a>
+</div>
+
+<script>
+  // Build a radial "comfort gauge" SVG — sweeps from hot (amber) to cool (coolant)
+  function buildGauge(el, size, sweep){
+    const c = size/2, r = size*0.38, stroke = size*0.09;
+    const circumference = 2*Math.PI*r;
+    const arc = circumference * 0.75; // 270 degree gauge
+    const gap = circumference - arc;
+    el.innerHTML = `
+      <svg viewBox="0 0 ${size} ${size}" width="${size}" height="${size}">
+        <circle cx="${c}" cy="${c}" r="${r}" fill="none" stroke="rgba(255,255,255,0.12)"
+          stroke-width="${stroke}" stroke-dasharray="${arc} ${gap}"
+          stroke-linecap="round" transform="rotate(135 ${c} ${c})"/>
+        <circle cx="${c}" cy="${c}" r="${r}" fill="none" stroke="url(#grad-${el.id})"
+          stroke-width="${stroke}" stroke-dasharray="${arc*sweep} ${circumference}"
+          stroke-linecap="round" transform="rotate(135 ${c} ${c})"
+          class="gauge-sweep"/>
+        <defs>
+          <linearGradient id="grad-${el.id}" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#F2A93B"/>
+            <stop offset="100%" stop-color="#49D6C7"/>
+          </linearGradient>
+        </defs>
+        <text x="${c}" y="${c-2}" text-anchor="middle" fill="#fff" font-family="JetBrains Mono, monospace" font-weight="700" font-size="${size*0.16}">72°</text>
+        <text x="${c}" y="${c+size*0.14}" text-anchor="middle" fill="#49D6C7" font-family="Inter, sans-serif" font-size="${size*0.07}" letter-spacing="1">STABLE</text>
+      </svg>`;
+  }
+  buildGauge(document.getElementById('heroGauge'), 86, 0.78);
+  const vg = document.getElementById('verifyGauge');
+  vg.id = 'verifyGauge';
+  buildGauge(vg, 220, 0.9);
+</script>
+
+</body>
+</html>
